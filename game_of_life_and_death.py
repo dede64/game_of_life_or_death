@@ -47,7 +47,7 @@ def one_day(pole):
 		x += 1
 	print(pole)
 
-	x, y = 0, 0
+	x = 0
 	screen.fill(bg_color)
 	for radka in pole:
 		y = 0
@@ -120,7 +120,7 @@ while z == 0:
 		else:
 			pole[X][Y] = 0
 
-	x, y = 0, 0
+	x = 0
 	screen.fill(bg_color)
 	for radka in pole:
 		y = 0
