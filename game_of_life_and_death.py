@@ -3,114 +3,47 @@ import time
 
 
 def one_day(pole):
-	x, y = 0, 0
+	x = 0
 	for radka in pole:
+		y = 0
 		for sloupec in radka:
-			if (pole[x][y] == 1):
-				nbc = 0 #neighbourcount
+			nbc = 0  # neighbourcount
+			around = (
+				(x-1, y-1),
+				(x, y-1),
+				(x+1, y-1),
+				(x-1, y),
+				(x+1, y),
+				(x-1, y+1),
+				(x, y+1),
+				(x+1, y+1),
+			)
+			for a in around:
 				try:
-					if (pole[x-1][y] == 1) or (pole[x-1][y] == 2):
+					if pole[a[0]][a[1]] in (1, 2):
 						nbc += 1
 				except:
 					pass
-				try:
-					if (pole[x+1][y] == 1) or (pole[x+1][y] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x][y-1] == 1) or (pole[x][y-1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:#4
-					if (pole[x][y+1] == 1) or (pole[x][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x-1][y-1] == 1) or (pole[x-1][y-1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x-1][y+1] == 1) or (pole[x-1][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x+1][y+1] == 1) or (pole[x+1][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:#8
-					if (pole[x+1][y-1] == 1) or (pole[x+1][y-1] == 2):
-						nbc += 1
-				except:
-					pass
+			if (pole[x][y] == 1):  # if it is alive
 				if (nbc < 2) or (nbc > 3):
 					pole[x][y] = 2
-			if (pole[x][y] == 0):
-				nbc = 0 #neighbourcount
-				try:
-					if (pole[x-1][y] == 1) or (pole[x-1][y] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x+1][y] == 1) or (pole[x+1][y] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x][y-1] == 1) or (pole[x][y-1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:#4
-					if (pole[x][y+1] == 1) or (pole[x][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x-1][y-1] == 1) or (pole[x-1][y-1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x-1][y+1] == 1) or (pole[x-1][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:
-					if (pole[x+1][y+1] == 1) or (pole[x+1][y+1] == 2):
-						nbc += 1
-				except:
-					pass
-				try:#8
-					if (pole[x+1][y-1] == 1) or (pole[x+1][y-1] == 2):
-						nbc += 1
-				except:
-					pass
+			if (pole[x][y] == 0):  # if it is dead
 				if nbc == 3:
 					pole[x][y] = 3
 
-			y+=1
-		y=0
-		x+=1
+			y += 1
+		x += 1
 
 
-	x, y = 0, 0
+	x = 0
 	for radka in pole:
+		y = 0
 		for sloupec in radka:
-			if (pole[x][y] == 2):
-				#print("do hrobu s tebou")
+			if (pole[x][y] == 2):  # die
 				pole[x][y] = 0
-			if (pole[x][y] == 3):
-				#print("ozij")
+			if (pole[x][y] == 3):  # resurrect
 				pole[x][y] = 1
 			y += 1
-		y = 0
 		x += 1
 	print(pole)
 
@@ -146,8 +79,8 @@ bg_color = (60, 60, 60)
 
 #0...mrtvi
 #1...zivi
-#2...ozivnou
-#3...zemrou
+#3...ozivnou
+#2...zemrou
 #5...border
 pole = [
 	[0]*32 + [5] for row in range(32)
