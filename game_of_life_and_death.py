@@ -157,20 +157,36 @@ pole.append(
 )
 print(pole)
 z = 0
+mouse_hold = False
 while z == 0:
 	for event in pygame.event.get():
+		'''
+		Hold LMB to create points,
+		hold RMB to delete them.
+		Press K_UP to start the thing.
+		'''
 		if event.type == pygame.MOUSEBUTTONDOWN:
-			(Y, X) = pygame.mouse.get_pos()
-			X = X//24
-			Y = Y//24
-			if pole[X][Y] == 0:
-				pole[X][Y] = 1
-			elif pole[X][Y] == 1:
-				pole[X][Y] = 0
-		if event.type == pygame.KEYDOWN:
+			mouse_hold = True
+			if event.button == 1:  # LMB
+				create = True
+			elif event.button == 3:  # RMB
+				create = False
+		if event.type == pygame.MOUSEBUTTONUP:
+			mouse_hold = False
 
+		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_UP:
 				z = 1
+
+	if mouse_hold:
+		(Y, X) = pygame.mouse.get_pos()
+		X = X//24
+		Y = Y//24
+		if create:
+			pole[X][Y] = 1
+		else:
+			pole[X][Y] = 0
+
 	x, y = 0, 0
 	screen.fill(bg_color)
 	for radka in pole:
